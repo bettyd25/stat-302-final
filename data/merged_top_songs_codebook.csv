@@ -1,0 +1,16 @@
+variable,description
+X,Rank of the popular song; popularity counting up
+title,Title of the song
+artist.s,The artist who sang or covered or made the instrumental of the song
+danceability,How suitable a track is for dancing based on a combination of musical elements
+energy,"Perceptual measure of intensity and activity based on its dynamic range, perceived loudness, timbre, onset"
+key,Key the track is in. Integers map to pitches using standard Pitch Class notation.
+loudness,Overall average loudness measured in decibels
+mode,Type of scale. Major is represented by 1 and minor is 0
+speechiness,Detects the presence of spoken words in a track. Higher percentage inficates more exclusively speech-like qualities
+acousticness,Confidence measure of whether the track is acoustic. Values range from 0.0 to 1.0. 1.0 represents high.
+valence,Musical positiveness conveyed by a track.
+tempo,Overall estimated tempo of a track in beats per minute.
+duration_ms,Duration of the track in milliseconds.
+time_signature,Estimated overall time signature of a track. The time signature is a notational convention to specify how many beats
+year,Year that the song became popular

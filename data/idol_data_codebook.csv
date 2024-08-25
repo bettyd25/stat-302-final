@@ -1,0 +1,19 @@
+variable,description
+`Stage Name`,Stage Name of the individual
+`Full Name`,Full Name of the individual
+`Korean Name`,Korean Name of the individual
+`K Stage Name`,K Stage Name of the individual
+`Date of Birth`,Date of Birth of the individual
+Group,Group the individual belongs to (null for soloists)
+Debut,Debut date of the individual
+Company,Company that the individual is managed by (if applicable)
+Country,Country of origin
+`Second Country`,Second Country (if applicable)
+Height,Height of the individual (in cm)
+Weight,Weight of the individual (in kg)
+Birthplace,Place of birth
+`Other Group`,Other Group (if applicable)
+`Former Group`,Former Group (if applicable)
+Gender,Gender of the individual
+age,Current Age of the Idol as of 2024
+debut_age,Debut Age of the Kpop Idol
