@@ -25,7 +25,16 @@ citation-location: margin
 
 ## Shiny App Visualization
 
-The motivation behind this visualization is: *Could I produce a visualization that *
+The motivation behind this visualization is: *Could I produce a visualization that inspects popular kpop artists' songs in an interesting and eye-catching way?*
+
+First, a picture of the kpop idols are presented at the top. Then, on the side bar, you can see a list of their top songs and the members of the group. I added a boxplot of the average age of the members to help visualize the relative age of each member-- and you could compare ages to other popular groups.
+
+Then, the polar coordinate graph captures the groups' top songs' relative duration, danceability, energy, etc. to other top songs in general (in deciles). Next, you can select individual song aspects of an artist's top songs to see how their music has evolved through the years at the individual artists' level, compared to themselves instead of relative to other idols' songs.
+
+With these visuals, ou'll get a brief introduction and glimpse of the group itself through members' names, ages and picture. You could select a top kpop song producing artist to look at what they're known for-- if they produced top hits in the early 2000s or in late 2010s, if their average songs are loud, danceable, have a high tempo, or something else. Then, if you're curious about how their sound evolved through time, you can toggle the song aspect.
+
+
+
 
 
 

@@ -322,9 +322,9 @@ server <- function(input, output) {
       geom_smooth(se = FALSE, color = artist_color) + 
       scale_x_continuous(labels = function(x) paste0(x)) +  
       labs(y = NULL,
-           x = NULL) +  
+           x = NULL,
+           title = paste0(input$song_aspect, " through the years")) + 
       theme_minimal()
-    
     
   })
   
