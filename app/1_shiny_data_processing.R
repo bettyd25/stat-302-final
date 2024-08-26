@@ -140,8 +140,36 @@ shiny_kpop_hits_data |>
   coord_polar()
 
 
+# plot 2 testing ----------------------------------------------------------
+
+selected_group <- "shinee"
 
 
+member <- top_kpop_idols |> 
+  filter(
+      selected_group == Group |
+      selected_group ==`Former Group` |
+      selected_group == `Other Group`) |> 
+   select(
+     `Stage Name`, `Full Name`
+   )
+ 
+
+# Create a table using gt
+member |> 
+  gt() |> 
+  tab_header(
+    title = paste("Members of", selected_group),
+    subtitle = "Stage Name and Original Name"
+  ) |> 
+  tab_style(
+    style = cell_text(align = "center"),
+    locations = cells_body(columns = everything())
+  ) |> 
+  tab_style(
+    style = cell_text(align = "center", weight = "bold"),
+    locations = cells_column_labels(columns = everything())
+  )
 
 
   

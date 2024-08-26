@@ -4,10 +4,22 @@ library(shiny)
 library(bslib)
 library(tidyverse)
 library(sf)
+library(gt)
 
 # loading data---------------
 load("data/shiny_kpop_hits_data.rds")
 load("data/top_kpop_groups.rds")
+
+kpop_idols <- read_csv("data/kpopidolsv3.csv")
+
+top_kpop_idols <- kpop_idols |> filter(
+  tolower(Group) %in% tolower(top_kpop_groups$artist.s) | 
+    tolower(`Former Group`) %in% tolower(top_kpop_groups$artist.s) | 
+    tolower(`Other Group`) %in% tolower(top_kpop_groups$artist.s)
+) |> 
+  mutate(Group = tolower(Group),
+         `Former Group` = tolower(`Former Group`),
+         `Other Group` = tolower(`Other Group`))
 
 artist_names <- unique(top_kpop_groups$artist.s)
 
@@ -47,14 +59,29 @@ ui <- page_sidebar(
         choices = artist_names
       )
     ),
+    layout_column_wrap(
+      width = 0.5,
+      
+      card(
+        plotOutput("polarPlot"),
+        card_body("The color is the color or fan color associated with the kpop artist!")
+      ),
+      
+      card(
+        tableOutput("memberTable"),
+        card_body("Note that some groups may not have members listed due to their current status.")
+      )
+    ),
     card(
-      plotOutput("polarPlot")
+      imageOutput("groupImage")
     )
+   
 )
 
 # Define server logic required to draw a histogram
 server <- function(input, output) {
 
+  # polar plot :))
   output$polarPlot <- renderPlot({
     artist <- input$artist_choice
     artist_color <- artist_hex_codes |> filter(
@@ -85,7 +112,7 @@ server <- function(input, output) {
         axis.ticks = element_blank(),
         panel.grid = element_blank(),
         axis.title = element_blank(),
-        title = element_text(size = 15, face = "bold",
+        title = element_text(face = "bold",
                              hjust = 0.5)
       ) +
       annotate(
@@ -100,12 +127,60 @@ server <- function(input, output) {
                    "Tempo",
                    "Duration"),
         
-        size = 5
+        size = 4
       ) +
       coord_polar()
   })
   
+ # make member table 
+  output$memberTable <- render_gt({
+    artist <- input$artist_choice
+    selected_group <- tolower(input$artist_choice)
+    
+    member <- top_kpop_idols |> 
+      filter(
+        selected_group == Group |
+          selected_group == `Former Group` |
+          selected_group == `Other Group`
+      ) |> 
+      select(
+        `Stage Name`, `Full Name`
+      )
+    
+    # Create a table using gt
+    member |> 
+      gt() |> 
+      tab_header(
+        title = paste("Members of", artist),
+        subtitle = "Stage Name and Original Name"
+      ) |> 
+      tab_style(
+        style = cell_text(align = "center"),
+        locations = cells_body(columns = everything())
+      ) |> 
+      tab_style(
+        style = cell_text(align = "center", weight = "bold"),
+        locations = cells_column_labels(columns = everything())
+      )
+  })
   
+  # make image
+  output$groupImage <- renderImage({
+    artist <- input$artist_choice
+    
+    file_path <- paste0("www/", artist, ".jpg")
+  
+    if (!file.exists(file_path)) {
+      file_path <- "www/default.jpg"  # Optional: Fallback image if the specific artist image is missing
+    }
+    
+    list(
+      src = file_path,
+      alt = paste("Image of", artist),
+      width = "100%"  # Adjust as needed
+    )
+  
+  }, deleteFile = FALSE)
   
 }
 
